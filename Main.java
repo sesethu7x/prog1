@@ -1,12 +1,5 @@
 import java.util.Scanner;
 
-/**
- * Console harness that validates each registration field as it's typed,
- * telling the user immediately whether it's valid or not, and refusing
- * to move on until it is. Only once every field is valid does it
- * actually register the user - so by the time registration happens,
- * every requirement is already guaranteed to pass.
- */
 public class Main {
 
     public static void main(String[] args) {
