@@ -12,8 +12,7 @@ public class Main {
         System.out.print("Last name: ");
         String lastName = scanner.nextLine();
 
-        // Start with placeholder values for the fields we're about to
-        // validate one at a time; setters below fill them in properly.
+       
         Login registration = new Login(firstName, lastName, "", "", "");
 
         // --- Username: keep asking until it passes checkUserName() ---
