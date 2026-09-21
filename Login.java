@@ -2,38 +2,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-/**
- * Handles registration validation and login verification for the chat app.
- *
- * Usage pattern:
- *   1. Build a Login object with the details a user typed into the
- *      registration form (constructor below).
- *   2. Call registerUser() -> validates everything and, if all three
- *      checks pass, stores the user in the in-memory "database"
- *      (a static list, since we don't have a real DB yet).
- *   3. For a login attempt, call captureLoginCredentials(username, password)
- *      then loginUser() to check the credentials, then
- *      returnLoginStatus() to get the message to show the user.
- */
+
 public class Login {
 
     // ---- in-memory "database" of everyone who has registered ----
     private static final List<User> registeredUsers = new ArrayList<>();
 
-    // Regex: '+' then a 1-3 digit country code, then 9-10 more digits
-    // for the number itself, e.g. +27 838968976 -> code "27", number
-    // "838968976" (9 digits). Because the code length is variable, the
-    // regex engine tries every valid split of the digit string between
-    // "code" and "number" until one fits both length ranges - it doesn't
-    // need to know exactly where the code ends, only that SOME split
-    // exists that respects both bounds (code 1-3 digits, number 9-10
-    // digits). That means the total digit count after '+' can range
-    // from 10 (1+9) up to 13 (3+10) - both ends of that range are
-    // intentional, not a loophole (see LoginTest for boundary checks).
-    //
-    // Reference: Oracle, n.d. Class Pattern. [Online]
-    // Available at: https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html
-    // [Accessed 20 September 2026].
+   
     private static final Pattern CELL_PATTERN =
             Pattern.compile("^\\+\\d{1,3}\\d{9,10}$");
 
@@ -50,10 +25,7 @@ public class Login {
     private boolean loginSuccessful;
     private User loggedInUser; // set only once loginUser() succeeds
 
-    /**
-     * Build a Login object holding the data a user typed on the
-     * registration screen, ready to be validated with registerUser().
-     */
+    
     public Login(String firstName, String lastName, String username,
                  String password, String cellPhoneNumber) {
         this.firstName = firstName;
@@ -63,24 +35,13 @@ public class Login {
         this.cellPhoneNumber = cellPhoneNumber;
     }
 
-    /**
-     * Build a Login object purely for attempting a login (no registration
-     * data needed). Equivalent to the old pattern of
-     * {@code new Login(null, null, null, null, null)} followed by
-     * {@code captureLoginCredentials(username, password)}, but clearer
-     * at the call site.
-     */
+   
     public Login(String username, String password) {
         this.loginUsername = username;
         this.loginPassword = password;
     }
 
-    // ------------------------------------------------------------------
-    // Setters - let a caller build up / correct one field at a time and
-    // re-run the matching check() method before moving on, instead of
-    // having to re-supply every field just to fix one.
-    // ------------------------------------------------------------------
-
+    
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -172,11 +133,7 @@ public class Login {
     // Registration
     // ------------------------------------------------------------------
 
-    /**
-     * Runs all three validation checks. If every check passes, the new
-     * user is stored and a success message is returned; otherwise the
-     * relevant failure message(s) are returned.
-     */
+    
     public String registerUser() {
         boolean formatOk = checkUserName();
         boolean duplicate = formatOk && isUsernameTaken(username);
@@ -263,9 +220,7 @@ public class Login {
         return "Username or password incorrect, please try again.";
     }
 
-    // ------------------------------------------------------------------
-    // Helpers used mainly by tests / other classes
-    // ------------------------------------------------------------------
+    
 
     /** Clears the in-memory user store. Handy between unit tests. */
     public static void clearRegisteredUsers() {
