@@ -55,9 +55,7 @@ public class Main {
                     + "the number and try again.");
         } while (!cellValid);
 
-        // Every field already passed its individual check above, so this
-        // call is really just the final confirmation + actually storing
-        // the user (registerUser() re-checks everything internally too).
+    
         System.out.println();
         System.out.println("All requirements met - registering...");
         System.out.println(registration.registerUser());
